@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "quarto_home",
+    "section": "",
+    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2\n\n\n\nlibrary(echarts4r)\ne_common(\n    font_family = \"Raleway\"\n)\n\nvalue <- rnorm(10, 10, 2)\nnodes <- data.frame(\n  name = sample(LETTERS, 10),\n  value = value,\n  size = value,\n  grp = rep(c(\"grp1\", \"grp2\"), 5),\n  symbol = sample(c(\"circle\", \"rect\", \"triangle\"), 10, replace = TRUE),\n  stringsAsFactors = FALSE\n)\nedges <- data.frame(\n  source = sample(nodes$name, 20, replace = TRUE),\n  target = sample(nodes$name, 20, replace = TRUE),\n  stringsAsFactors = FALSE\n)\ne_charts() |> \n  e_graph() |> \n  e_graph_nodes(nodes, name, value, size, grp, symbol) |> \n  e_graph_edges(edges, source, target) |> \n  e_tooltip()"
+  },
+  {
+    "objectID": "ggplot.html",
+    "href": "ggplot.html",
+    "title": "ggplot2 demo",
+    "section": "",
+    "text": "Figure 1 further explores the impact of temperature on ozone level.\n\n\nCode\nlibrary(ggplot2)\n\nggplot(airquality, aes(Temp, Ozone)) + \n  geom_point() + \n  geom_smooth(method = \"loess\"\n)\n\n\n\n\n\nFigure 1: Temperature and ozone level.\n\n\n\n\n\n\nCode\nlibrary(echarts4r)\ne_common(\n    font_family = \"Raleway\"\n)\nvalue <- rnorm(10, 10, 2)\n\nnodes <- data.frame(\n  name = sample(LETTERS, 10),\n  value = value,\n  size = value,\n  stringsAsFactors = FALSE\n)\n\nedges <- data.frame(\n  source = sample(nodes$name, 20, replace = TRUE),\n  target = sample(nodes$name, 20, replace = TRUE),\n  stringsAsFactors = FALSE\n)\n\ne_charts() |> \n  e_graph() |> \n  e_graph_nodes(nodes, name, value, size) |> \n  e_graph_edges(edges, source, target) |> \n  e_tooltip()"
+  },
+  {
+    "objectID": "ggplot.html#air-quality",
+    "href": "ggplot.html#air-quality",
+    "title": "quarto_home",
+    "section": "Air Quality",
+    "text": "Air Quality\n@fig-airquality further explores the impact of temperature on ozone level.\n```{r} #| label: fig-airquality #| fig-cap: Temperature and ozone level. #| warning: false\nlibrary(ggplot2)\nggplot(airquality, aes(Temp, Ozone)) + geom_point() + geom_smooth(method = “loess” ) ```"
+  },
+  {
+    "objectID": "graph.html",
+    "href": "graph.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "echart.html",
+    "href": "echart.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2\n\n\n\nlibrary(echarts4r)\ne_common(\n    font_family = \"Raleway\"\n)\n\nvalue <- rnorm(10, 10, 2)\nnodes <- data.frame(\n  name = sample(LETTERS, 10),\n  value = value,\n  size = value,\n  grp = rep(c(\"grp1\", \"grp2\"), 5),\n  symbol = sample(c(\"circle\", \"rect\", \"triangle\"), 10, replace = TRUE),\n  stringsAsFactors = FALSE\n)\nedges <- data.frame(\n  source = sample(nodes$name, 20, replace = TRUE),\n  target = sample(nodes$name, 20, replace = TRUE),\n  stringsAsFactors = FALSE\n)\ne_charts() |> \n  e_graph() |> \n  e_graph_nodes(nodes, name, value, size, grp, symbol) |> \n  e_graph_edges(edges, source, target) |> \n  e_tooltip()"
+  },
+  {
+    "objectID": "map.html",
+    "href": "map.html",
+    "title": "Map",
+    "section": "",
+    "text": "library(echarts4r)\ne_common(\n    font_family = \"Raleway\"\n)\n\nquakes |> \n  e_charts(long) |> \n  e_geo(\n    roam = TRUE,\n    boundingCoords = list(\n      c(185, - 10),\n      c(165, -40)\n     )\n  ) |> \n  e_scatter_gl(lat, depth) |> \n  e_visual_map()"
+  }
+]
