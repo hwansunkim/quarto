@@ -1,0 +1,28 @@
+project:
+  type: website
+
+website:
+  title: "quarto_home"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - href: ggplot.qmd
+        text: example
+      
+    right: 
+      - text: example2
+        file: echart.qmd
+      - text: map
+        file: map.qmd
+        
+
+format:
+  html:
+    theme: latter
+    css: styles.css
+    toc: true
+
+editor: visual
+
