@@ -46,6 +46,13 @@
     "href": "map.html",
     "title": "Map",
     "section": "",
-    "text": "library(echarts4r)\ne_common(\n    font_family = \"Raleway\"\n)\n\nquakes |> \n  e_charts(long) |> \n  e_geo(\n    roam = TRUE,\n    boundingCoords = list(\n      c(185, - 10),\n      c(165, -40)\n     )\n  ) |> \n  e_scatter_gl(lat, depth) |> \n  e_visual_map()"
+    "text": "print(\"hello\")\n\nhello"
+  },
+  {
+    "objectID": "heatmap.html",
+    "href": "heatmap.html",
+    "title": "HeatMap",
+    "section": "",
+    "text": "library(echarts4r)\nlibrary(quantmod)\n\nLoading required package: xts\n\n\nLoading required package: zoo\n\n\n\nAttaching package: 'zoo'\n\n\nThe following objects are masked from 'package:base':\n\n    as.Date, as.Date.numeric\n\n\nLoading required package: TTR\n\n\nRegistered S3 method overwritten by 'quantmod':\n  method            from\n  as.zoo.data.frame zoo \n\nv <- LETTERS[1:10]\nmatrix <- data.frame(\n  x = sample(v, 300, replace = TRUE), \n  y = sample(v, 300, replace = TRUE), \n  z = rnorm(300, 10, 1),\n  stringsAsFactors = FALSE\n) |> \n  dplyr::group_by(x, y) |> \n  dplyr::summarise(z = sum(z)) |> \n  dplyr::ungroup()\n\n`summarise()` has grouped output by 'x'. You can override using the `.groups`\nargument.\n\nmatrix |> \n  e_charts(x) |> \n  e_heatmap(y, z) |> \n  e_visual_map(z) |> \n  e_title(\"Heatmap\")"
   }
 ]

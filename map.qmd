@@ -20,3 +20,7 @@ quakes |>
   e_scatter_gl(lat, depth) |> 
   e_visual_map()
 ```
+
+```{python}
+print("hello")
+```

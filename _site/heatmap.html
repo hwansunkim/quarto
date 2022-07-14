@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto_home</title>
+<title>quarto_home - HeatMap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,6 +116,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/echarts4r-4.8.0/echarts-en.min.js"></script>
+<script src="site_libs/echarts4r-4.8.0/ecStat.min.js"></script>
+<script src="site_libs/echarts4r-4.8.0/dataTool.min.js"></script>
+<script src="site_libs/echarts4r-binding-0.4.4/echarts4r.js"></script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -136,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
+    <a class="nav-link" href="./index.html">Home</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html">About</a>
@@ -153,7 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="./map.html">map</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./heatmap.html">heatmap</a>
+    <a class="nav-link active" href="./heatmap.html" aria-current="page">heatmap</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -173,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">quarto_home</h1>
+<h1 class="title">HeatMap</h1>
 </div>
 
 
@@ -187,12 +192,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>This is a Quarto website.</p>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(echarts4r)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: xts</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: zoo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: TTR</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>matrix <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">sample</span>(v, <span class="dv">300</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">sample</span>(v, <span class="dv">300</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">300</span>, <span class="dv">10</span>, <span class="dv">1</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(x, y) <span class="sc">|&gt;</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">z =</span> <span class="fu">sum</span>(z)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'x'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">e_charts</span>(x) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">e_heatmap</span>(y, z) <span class="sc">|&gt;</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">e_visual_map</span>(z) <span class="sc">|&gt;</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">e_title</span>(<span class="st">"Heatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-d0ca6f5838253fda6d19" style="width:100%;height:500px;" class="echarts4r html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d0ca6f5838253fda6d19">{"x":{"theme":"","tl":false,"draw":true,"renderer":"canvas","events":[],"buttons":[],"opts":{"yAxis":[{"data":["A","B","C","D","E","F","G","H","I","J"]}],"xAxis":[{"data":["A","B","C","D","E","F","G","H","I","J"]}],"series":[{"data":[{"value":["A","A","38.835049"]},{"value":["A","B","27.124910"]},{"value":["A","C","49.750220"]},{"value":["A","D","10.474155"]},{"value":["A","E","12.497473"]},{"value":["A","F"," 9.145083"]},{"value":["A","G","47.876283"]},{"value":["A","H","41.059412"]},{"value":["A","I","19.826246"]},{"value":["A","J","37.630154"]},{"value":["B","A","28.710020"]},{"value":["B","B","27.007035"]},{"value":["B","C","11.791699"]},{"value":["B","D","50.378500"]},{"value":["B","E","60.297141"]},{"value":["B","G","49.613870"]},{"value":["B","H","31.558660"]},{"value":["B","I","10.284115"]},{"value":["B","J","39.102500"]},{"value":["C","A","38.342423"]},{"value":["C","B","39.661725"]},{"value":["C","C"," 9.647583"]},{"value":["C","D","29.036351"]},{"value":["C","E","40.670191"]},{"value":["C","F","11.423889"]},{"value":["C","G","27.955030"]},{"value":["C","H","50.682445"]},{"value":["C","I","20.516220"]},{"value":["C","J","21.061797"]},{"value":["D","B","68.560278"]},{"value":["D","C","40.170195"]},{"value":["D","D","71.376391"]},{"value":["D","E","18.623703"]},{"value":["D","F","70.354533"]},{"value":["D","G","43.725418"]},{"value":["D","I","40.808513"]},{"value":["D","J","31.479522"]},{"value":["E","A","19.406020"]},{"value":["E","B","20.762914"]},{"value":["E","C","19.945508"]},{"value":["E","D","40.326338"]},{"value":["E","E","57.798316"]},{"value":["E","F","19.456263"]},{"value":["E","G","19.916183"]},{"value":["E","H","53.199536"]},{"value":["E","I"," 9.453338"]},{"value":["E","J","29.943588"]},{"value":["F","A","52.199567"]},{"value":["F","B","40.238082"]},{"value":["F","C","40.905908"]},{"value":["F","E","51.455948"]},{"value":["F","F","29.385340"]},{"value":["F","G","10.636305"]},{"value":["F","H"," 9.787451"]},{"value":["F","J","20.274848"]},{"value":["G","A"," 9.543248"]},{"value":["G","B","17.589365"]},{"value":["G","C","27.086224"]},{"value":["G","D","40.206952"]},{"value":["G","E","18.910387"]},{"value":["G","F","22.587594"]},{"value":["G","G","18.290071"]},{"value":["G","H","10.041611"]},{"value":["G","I","48.112744"]},{"value":["G","J","31.125496"]},{"value":["H","A","30.142631"]},{"value":["H","B","50.021956"]},{"value":["H","C","51.319491"]},{"value":["H","D"," 9.993695"]},{"value":["H","E","60.722455"]},{"value":["H","F","80.811328"]},{"value":["H","G","71.118680"]},{"value":["H","H"," 8.367481"]},{"value":["H","I","22.160185"]},{"value":["H","J"," 8.235562"]},{"value":["I","A","51.632587"]},{"value":["I","B"," 9.549503"]},{"value":["I","C"," 9.294653"]},{"value":["I","D","42.394054"]},{"value":["I","E","10.139513"]},{"value":["I","F","31.676331"]},{"value":["I","G","29.258879"]},{"value":["I","H","30.479098"]},{"value":["I","I","18.848170"]},{"value":["I","J","50.602241"]},{"value":["J","A","18.181277"]},{"value":["J","B","30.460984"]},{"value":["J","C","60.110783"]},{"value":["J","D","31.450649"]},{"value":["J","E","16.902844"]},{"value":["J","F"," 9.204598"]},{"value":["J","G","10.235335"]},{"value":["J","H","29.326617"]},{"value":["J","I"," 9.619148"]},{"value":["J","J","39.776556"]}],"name":null,"type":"heatmap","coordinateSystem":"cartesian2d"}],"visualMap":[{"calculable":true,"type":"continuous","min":8.23556166001745,"max":80.8113279552475}],"title":[{"text":"Heatmap"}]},"dispose":true},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 

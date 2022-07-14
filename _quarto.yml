@@ -16,6 +16,8 @@ website:
         file: echart.qmd
       - text: map
         file: map.qmd
+      - text: heatmap
+        file: heatmap.qmd
         
 
 format:
